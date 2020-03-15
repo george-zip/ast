@@ -21,46 +21,26 @@ struct InitState : public State {
             char next,
             std::string &accumulator,
             StateContext &context,
-            std::shared_ptr<Node> current_node) const override {
-        assert(accumulator.empty());
-        assert(current_node == nullptr);
-        //context.setState(new OutsideOfExpressionState);
-        return std::make_shared<Node>();
-    }
+            std::shared_ptr<Node> current_node) const override;
 };
 
-struct OutsideOfExpressionState : public State {
-    virtual std::shared_ptr<Node> handleCharacter(
+struct OutsideOfToken : public State {
+    std::shared_ptr<Node> handleCharacter(
             char next,
             std::string &accumulator,
             StateContext &context,
-            std::shared_ptr<Node> current_node) const override {
-        assert(accumulator.empty());
-//        switch (next) {
-//            case '(':
-//                if (current_node) {
-//
-//                } else {
-//                    current_node = std::make_shared<Node>();
-//                }
-//                break;
-//            case ')':
-//                break;
-//            case ' ':
-//                // ignore
-//                break;
-//            default:
-//                accumulator += next;
-//                //context.setState(InsideOfExpressionState{});
-//        }
-        return current_node;
-    }
+            std::shared_ptr<Node> current_node) const override;
+};
+
+struct InsideToken : public State {
+    std::shared_ptr<Node> handleCharacter(char next, std::string &accumulator, StateContext &context,
+                                          std::shared_ptr<Node> current_node) const override;
 };
 
 struct StateContext {
 
     StateContext() {
-        state = std::make_unique<OutsideOfExpressionState>();
+        state = std::make_unique<InitState>();
     }
 
     void setState(State *new_state) {
@@ -78,7 +58,7 @@ private:
     std::unique_ptr<State> state;
 };
 
-//struct InsideOfExpressionState : public State {
+//struct InsideToken : public State {
 //    virtual void handleCharacter(
 //            char next,
 //            std::string &accumulator,

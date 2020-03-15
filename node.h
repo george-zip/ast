@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+// TODO: Node should be variant of atom, operator or list
 struct Node {
     std::string value;
     std::weak_ptr<Node> parent;

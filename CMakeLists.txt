@@ -3,6 +3,6 @@ project(ast)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(ast main.cpp state_machine.cpp node_writer.cpp)
+add_executable(ast main.cpp state_machine.cpp)
 
-add_executable(test test_ast.cpp state_machine.cpp node_writer.cpp)
+add_executable(test test_ast.cpp state_machine.cpp)
